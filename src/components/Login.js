@@ -5,8 +5,13 @@ import './css/Login.css';
 import { NavLink } from 'react-router-dom';
 
 import service from '../services/service';
+import Global from '../Global';
 import Swal from 'sweetalert2';
+import io from "socket.io-client";
 
+const socket = io(Global.SocketUrl, {
+    withCredentials: true,
+});
 export class Login extends Component {
     currentService = new service();
 
@@ -58,6 +63,7 @@ export class Login extends Component {
             cancelButtonColor: "#2C4D9E",
         }).then((result) => {
             if (result.isConfirmed) {
+                socket.emit("panic");
                 Swal.fire('Reseteo completado','Los temporizadores han sido reseteados satisfactoriamente','success');
             }
         })
