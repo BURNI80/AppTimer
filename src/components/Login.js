@@ -5,6 +5,7 @@ import './css/Login.css';
 import { NavLink } from 'react-router-dom';
 
 import service from '../services/service';
+import Swal from 'sweetalert2';
 
 export class Login extends Component {
     currentService = new service();
@@ -37,6 +38,29 @@ export class Login extends Component {
     signout = () => {
         localStorage.clear();
         this.setState({ token : null });
+    }
+
+    resetEmergency = () => {
+        Swal.fire({
+            title : "Reseteo de emergencia",
+            html : "<p>Esta acción permite <b>resetear la base de datos</b> de la aplicación y " +
+                   "<b>restaurar los temporizadores</b> en caso de que haya producido alguna <b>falla en el " +
+                   "sistema.</b></p><p style='margin:0;'><b>El temporizador actual</b> (en el caso de que hubiese " +
+                   "uno activo en este momento) <b>no se puede restaurar.</b> No obstante, una vez este finalice, " + 
+                   "el resto de temporizadores habrán sido reseteados para continuar con su funcionamento normal.</p>" +
+                   "<br/><p><b>¿Desea continuar con el reseteo de emergencia?</b></p>",
+            icon : "warning",
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: "Sí, ejecutar reseteo",
+            confirmButtonColor: "#FF0000",
+            cancelButtonText: "No, cancelar",
+            cancelButtonColor: "#2C4D9E",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Reseteo completado','Los temporizadores han sido reseteados satisfactoriamente','success');
+            }
+        })
     }
 
     render() {
@@ -73,6 +97,9 @@ export class Login extends Component {
                             <NavLink to="/temporizadores" className='button_superuser'>
                                 Temporizadores
                             </NavLink>
+                            <button id="btn_emergencia" className='button_superuser' onClick={() => this.resetEmergency()}>
+                                Resetear Temporizadores
+                            </button>
                         </div>
                     )
                 }

@@ -27,6 +27,10 @@ form {
     justify-content: space-around;
 }
 
+#btn_emergencia {
+    background-color: rgb(185, 50, 50);
+}
+
 .button_superuser {
     margin: auto;
     width: 90%;
