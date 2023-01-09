@@ -48,7 +48,7 @@ export class Login extends Component {
                             <label htmlFor="userbox" className='form-label noselect'>Usuario</label>
                             <input type="text" id='userbox' className='form-control' ref={this.userbox}/> 
                             <label htmlFor="passwordbox" className='form-label noselect mt-2'>Contraseña</label>
-                            <input type="text" id='passwordbox' className='form-control' ref={this.passwordbox}/> 
+                            <input type="password" id='passwordbox' className='form-control' ref={this.passwordbox}/> 
                             <button className='buttonform'>
                                 Iniciar sesión
                             </button>

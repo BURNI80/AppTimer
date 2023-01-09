@@ -13,6 +13,9 @@ function App() {
 
     useEffect(() => {
         socket.on('envio', (num) => {
+            if (num === 0) {
+                navigator.vibrate(500);
+            }
             const min = Math.floor(num / 60);
             const sec = num % 60;
             setNumero(`${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`)
