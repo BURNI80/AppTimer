@@ -1,0 +1,48 @@
+form {
+    width: 80vw;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.buttonform {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 25px;
+    box-shadow: 0 4px 0 1px rgb(192, 192, 192);
+    background-color: var(--bkg_button_form);
+    color: white;
+}
+
+.buttonform:hover, .buttonform:active {
+    box-shadow: none;
+    transform: translateY(4px);
+}
+
+.content_box_superuser {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.button_superuser {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 25px;
+    box-shadow: 0 4px 0 1px rgb(192, 192, 192);
+    background-color: rgb(96, 149, 180);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.button_superuser:hover, .button_superuser:active {
+    box-shadow: none;
+    color: white;
+    transform: translateY(4px);
+}

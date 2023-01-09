@@ -1,0 +1,64 @@
+/* =============================== SIDEMENU STYLE =============================== */
+.menupopup-box-component {
+    width: 80vw;
+    height: 100vh;
+    background-color: var(--bkg_popup_menu);
+    z-index: 12;
+    position: absolute;
+    -webkit-transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    transform: translateX(-80vw) translateY(-10px);
+    border-right: 5px solid var(--bdr_popup_menu);
+}
+
+.menupopup-box-component-show {
+    transform: translateX(0) translateY(-10px);
+}
+/* =============================== SIDEMENU STYLE =============================== */
+
+/* =============================== ICON BACK STYLE =============================== */
+.menupopup-back {
+    width: 55px;
+    float: right;
+    border: 0;
+    padding: 15px;
+    margin: 10px 5px;
+    background-color: transparent;
+}
+
+.menupopup-back > img {
+    max-width: 25px;
+    filter: invert(45%) sepia(38%) saturate(4%) hue-rotate(314deg) brightness(96%) contrast(96%);
+}
+/* =============================== ICON BACK STYLE =============================== */
+
+/* =============================== MENU ITEMS STYLE =============================== */
+.menupopup-box-items {
+    width: 100%;
+}
+
+.menupopup-box-items > a {
+    background-color: var(--bkg_popup_menu_item);
+    text-decoration: none;
+    font-family: Share;
+    font-weight: 700;
+    font-size: large;
+    color: var(--clr_popup_menu_item);
+    display: inline-block;
+    width: 100%;
+    padding: 15px 30px;
+    border-bottom: 2px solid var(--bdr_popup_menu_item);
+    transition: 0.2s;
+}
+
+.menupopup-box-items > a:first-of-type  {
+    border-top: 2px solid var(--bdr_popup_menu_item);
+}
+
+.menupopup-box-items > a:hover, .menupopup-box-items > a:active {
+    background-color: var(--bkg_popup_menu_item_hover);
+    color: white;
+}
+/* =============================== MENU ITEMS STYLE =============================== */

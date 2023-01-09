@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'Glegoo';
+    src: url('fonts/Glegoo/Glegoo-Regular.ttf')format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Glegoo';
+    src: url('fonts/Glegoo/Glegoo-Bold.ttf')format('truetype');
+    font-style: normal;
+    font-weight: 700;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Nexa';
+    src: url('fonts/Nexa/Nexa-Trial-Bold.ttf')format('truetype');
+    font-style: normal;
+    font-weight: 700;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Nexa';
+    src: url('fonts/Nexa/Nexa-Trial-ExtraBold.ttf')format('truetype');
+    font-style: normal;
+    font-weight: 1000;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Share';
+    src: url('fonts/Share/Share-Regular.ttf')format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Share';
+    src: url('fonts/Share/Share-Bold.ttf')format('truetype');
+    font-style: normal;
+    font-weight: 700;
+    font-display: block;
+}

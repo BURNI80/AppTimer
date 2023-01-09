@@ -1,0 +1,68 @@
+@media screen and (max-width: 375px) and (orientation: portrait) {
+    .menutag {
+        font-size: medium;
+    }
+}
+
+@media screen and (min-width: 376px) and (orientation: portrait) {
+    .menutag {
+        font-size: large;
+    }
+}
+
+.menubar {
+    display: block;
+    width: 90%;
+    height: 70px;
+    margin: 0 auto;
+}
+
+.menucircle {
+    background-color: var(--bkg_menu_circle);
+    margin: 0;
+    border: 5px solid white;
+    border-radius: 50%;
+    padding: 15px;
+    position: absolute;
+    z-index: 2;
+}
+
+.menucircle:hover,.menucircle:active {
+    background-color: var(--bkg_menu_circle_hover);
+}
+
+.menutag {
+    background-color: var(--bkg_menu_tag);
+    display: inline-block;
+    width: 100%;
+    border-radius: 25px;
+    padding: 10px 20px;
+    text-align: right;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    font-family: Nexa;
+}
+
+.menutag > div {
+    display: inline-block;
+    width: 50px;
+    text-align: left;
+}
+
+.background_black {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    display: none;
+    background-color: transparent;
+  }
+  
+  .background_black_show {
+    display: block;
+    background-color: var(--bkg_dark_block);
+  }

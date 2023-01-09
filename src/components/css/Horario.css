@@ -1,0 +1,160 @@
+.schedule_table_box {
+    width: 90vw;
+    margin: auto auto 50px auto;
+}
+
+.schedule_table {
+    border-collapse: separate;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+tr, td, th {
+    text-align: center;
+    border: 2px solid var(--dark_gray);
+    border-radius: 0;
+}
+
+th:first-child { 
+    border-top-left-radius: 10px; 
+}
+
+th:last-child {   
+    border-top-right-radius: 10px; 
+}
+tr:last-child td:first-child { 
+    border-bottom-left-radius: 10px; 
+}
+
+tr:last-child td:last-child { 
+    border-bottom-right-radius: 10px; 
+}
+
+#theader_schedule {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 6fr 1fr;
+}
+
+#theader_schedule_p {
+    margin: 0;
+    font-size: 22px;
+}
+
+.schedule_header {
+    font-size: 25px;
+    font-family: Share;
+}
+
+.schedule_header > th:first-child {
+    width: 3em;
+}
+
+.schedule_buttons_rooms {
+    border: 0;
+    background-color: transparent;
+    padding: 12px;
+    margin: 0 10px;
+    display: inline-flex;
+}
+
+.schedule_buttons_rooms > svg {
+    margin: auto;
+}
+
+.schedule_col {
+    max-width: 10em;
+}
+
+.schedule_col > img {
+    max-width: 10%;
+}
+
+.button_edit_schedule {
+    display: block;
+    margin: auto auto 15px auto;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 25px;
+    box-shadow: 0 4px 0 1px rgb(192, 192, 192);
+    background-color: var(--bkg_button_edit_schedule);
+    color: white;
+    text-decoration: none;
+}
+
+.button_edit_schedule:hover, .button_edit_schedule:active {
+    box-shadow: none;
+    color: white;
+    transform: translateY(4px);
+}
+
+.company_edit_box {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 0.5fr;
+    align-items: stretch;
+}
+
+.company_edit_box_target {
+    font-size: larger;
+    font-weight: 700;
+    font-family: Glegoo;
+    max-width: 2fr;
+    overflow: scroll;
+}
+
+.company_edit_box_target_add {
+    filter: var(--fill_targer_company_add);
+}
+
+.company_edit_box_target_add:active {
+    filter: var(--fill_targer_company_add_active);
+}
+
+.company_edit_box_target_sub {
+    filter: var(--fill_targer_company_sub);
+}
+
+.company_edit_box_target_sub:active {
+    filter: var(--fill_targer_company_sub_active);
+}
+
+.company_edit_box_target_add, .company_edit_box_target_sub {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.inactive {
+    filter: var(--fill_targer_company_inactive);
+}
+
+.target_text {
+    margin: 0;
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+}
+
+.addsub_icon {
+    width: 80%;
+    max-width: 5vh;
+    top: 50%;
+    margin: 0;
+    transform: translateY(-50%);
+    position: relative;
+}
+
+.scroll {
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}

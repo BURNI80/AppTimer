@@ -1,0 +1,82 @@
+.box-component {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    top: 0;
+    background-color: var(--bkg_dark_block);
+}
+
+.box-popup {
+    background-color: var(--bkg_popup_salas);
+    display: block;
+    margin: 0 auto;
+    padding: 5vw;
+    width: 75vw;
+    height: 80vh;
+    position: relative;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    border-radius: 25px;
+}
+
+.box-btns {
+    position: absolute;
+    width: calc(100% - 10vw);
+    height: calc(100% - 10vw);
+    overflow: scroll;
+    border-radius: 25px;
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.box-btns::-webkit-scrollbar {
+    display: none; /* Chrome */
+}
+
+.popup-btn-sala {
+    display: inline;
+    width: 100%;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 0;
+    margin: 5px 0;
+    color: var(--clr_popup_salas);
+    background-color: var(--s03);
+    font-family: Share;
+    font-weight: 400;
+    font-size: 25px;
+    box-shadow: 0 4px 0 1px var(--btn_bottom_shw);
+}
+
+.popup-btn-sala:active {
+    box-shadow: none;
+    transform: translateY(4px);
+}
+
+.popup-btn-sala-shadow {
+    -webkit-box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.50);
+    -moz-box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.50);
+    box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.50);
+}
+
+.close-icon:after{
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background-color: var(--bkg_popup_salas);
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    text-align: center;
+    content: "\00d7"; /* This will render the 'X' */
+}
+
+.close-icon:hover, .close-icon:active{
+    cursor: pointer;
+}
