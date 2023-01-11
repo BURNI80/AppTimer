@@ -309,15 +309,44 @@ export class Horario extends Component {
         }
     }
 
+    iniciarEventoTimers = () => {
+        if (this.state.token) {
+            var today = new Date();
+            var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+            var minutes = today.getMinutes();
+            this.currentService.updateIncreaseTimers(2).then(() => {
+                this.loadRooms();
+                this.loadTimers();
+                this.loadCategories();
+                this.loadCompanies();
+                this.loadTiemposEmpresasSalas();
+                Swal.fire(
+                    'Evento iniciado!!!',
+                    'Comienzan los Timers',
+                    'success'
+                );
+            });
+        }
+    } 
+
     render() {
         return (
             <div>
                 <h1 className='timer_title noselect'>HORARIO</h1>
                 {
                     this.state.token && (
-                        <button id="button_edit_schedule" className='button_edit_schedule' onClick={() => this.changeMode()}>
-                            Editar empresas
-                        </button>
+                        <div>
+                            <button id="button_edit_schedule" className='button_edit_schedule' onClick={() => this.changeMode()}>
+                                Editar empresas
+                            </button>
+                            <button id="button_init_timers" 
+                                className='button_edit_schedule' 
+                                onClick={() => this.iniciarEventoTimers()}>
+                                Iniciar Timers
+                            </button>  
+                        </div>
+
+                        
                     )
                 }
                 <div className='schedule_table_box'>

@@ -62,6 +62,10 @@
     --s04 : #7ea3ff;
     --s05 : #b9cdff;
 
+    --bkg_crcolor_180 : rgb(250, 255, 0);
+    --bkg_crcolor_60 : rgb(255, 125, 0);
+    --bkg_crcolor_3 : rgb(255, 00, 0);
+
     --blue_primary : #3E6BDE;
     --blue_light   : #3ECEFA;
     /* ================================ GENERAL COLORS ================================ */
