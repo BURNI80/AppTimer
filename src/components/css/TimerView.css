@@ -227,12 +227,14 @@
     transition: 0s;
 }
 
+
 .crcolor_180 {
     background-color: var(--bkg_crcolor_180);
 }
 
 .crcolor_60 { background-color: var(--bkg_crcolor_60); }
 .crcolor_3 { background-color: var(--bkg_crcolor_3); }
+
 
 /* ==================== CIRCLE STYLES ==================== */
 

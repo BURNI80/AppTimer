@@ -226,10 +226,7 @@ export class TimerView extends Component {
                             )
                         }
                 </header>
-
                 <div id="theCircle" className='maincircle mainshadow shadowcircle' onClick={() => this.startEvent()}>
-
-
 
                     <span className='valuecircle noselect'>
                         <Tiempo/>
