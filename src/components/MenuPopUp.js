@@ -26,6 +26,7 @@ export class MenuPopUp extends Component {
                     <NavLink to='/categorias' onClick={this.exit}>Categorías</NavLink>        {/* CRUD de las categorías */}
                     <NavLink to='/temporizadores' onClick={this.exit}>Temporizadores</NavLink>        {/* CRUD de los temporizadores */}
                     <NavLink to='/login' onClick={this.exit}>Administrador</NavLink>        {/* Login para obenter permisos CUD del CRUD */}
+                    <NavLink to='/empresastimers' onClick={this.exit}>Seguimiento Empresas timer</NavLink>
                 </div>
             </div>
         )

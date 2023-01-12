@@ -10,6 +10,7 @@ import io from "socket.io-client";
 /* SUBCOMPONENTES */
 import SalaPopUp from './SalaPopUp';
 import Tiempo from './Tiempo';
+import Swal from 'sweetalert2';
 
 const socket = io(Global.SocketUrl, {
     withCredentials: true,
@@ -51,6 +52,43 @@ export class TimerView extends Component {
         //     });
         // });
         
+        socket.on('envio', (num) => {
+            var caso = 0;
+            if(num <= 180 && num > 60) {
+                caso = 1;
+            }
+
+            if(num <= 60 && num > 3) {
+                caso = 2;
+            }
+
+            if(num <= 3 && num > 0) {
+                caso = 3;
+            }
+            switch (caso) {
+                case 1: 
+                    document.getElementById('theCircle').classList.add("crcolor_180");
+                    document.getElementById('theCircle').classList.remove("crcolor_60");
+                    document.getElementById('theCircle').classList.remove("crcolor_3");
+                    break;
+                case 2: 
+                    document.getElementById('theCircle').classList.remove("crcolor_180");
+                    document.getElementById('theCircle').classList.add("crcolor_60");
+                    document.getElementById('theCircle').classList.remove("crcolor_3");
+                    break;
+                case 3:
+                    document.getElementById('theCircle').classList.remove("crcolor_180");
+                    document.getElementById('theCircle').classList.remove("crcolor_60");
+                    document.getElementById('theCircle').classList.add("crcolor_3");
+                    break;
+                default: 
+                    document.getElementById('theCircle').classList.remove("crcolor_180");
+                    document.getElementById('theCircle').classList.remove("crcolor_60");
+                    document.getElementById('theCircle').classList.remove("crcolor_3");
+                break;
+            }
+        });
+
         socket.on('timerID', (idTimer) => {
             this.setState({
                 timer_id : idTimer
@@ -175,6 +213,32 @@ export class TimerView extends Component {
         });
     }
 
+    getNow = () => {
+        var ahora = new Date(), hours = "", minutes = "";
+        hours = ((ahora.getHours() < 10)? "0" : "") + ahora.getHours();
+        minutes = ((ahora.getMinutes() < 10)? "0" : "") + ahora.getMinutes();
+        return hours + ":" + minutes;
+    }
+
+    startEvent = () => {
+        if (this.state.token) {
+            Swal.fire({
+                title: "¿Iniciar evento?",
+                text: "El evento se iniciará a las " + this.getNow(),
+                icon: "question",
+                showConfirmButton: true,
+                confirmButtonText: "Iniciar",
+                confirmButtonColor: "#2C4D9E",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar"
+            }).then((result_start) => {
+                if (result_start.isConfirmed) {
+                    socket.emit("start");
+                }
+            });
+        }
+    }
+
     render() {
         return (
             <div>
@@ -199,7 +263,7 @@ export class TimerView extends Component {
                             )
                         }
                 </header>
-                <div className='maincircle mainshadow shadowcircle'>
+                <div id="theCircle" className='maincircle mainshadow shadowcircle' onClick={() => this.startEvent()}>
                     <span className='valuecircle noselect'>
                         <Tiempo/>
                     </span>

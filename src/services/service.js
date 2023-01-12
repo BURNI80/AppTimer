@@ -306,4 +306,79 @@ export default class service {
         });
     }
 
+        //CODIGO NUEVO DE TIMERS PARA UPDATE
+    //INCREMENTAMOS EN n MINUTES
+    updateIncreaseTimers(minutes) {
+        var url = Global.mainUrl + "api/timers/increasetimers/" + minutes;
+        return new Promise(function(resolve) {
+            axios.put(url).then(response => {
+                socket.emit("syncData");
+                resolve(response);
+            }).catch((error) => {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error:', error.message);
+            });
+        });
+    }
+
+    getEmpresasTimers() {
+        var url = Global.mainUrl + "api/timereventos/empresastimers";
+        return new Promise(function(resolve) {
+            axios.get(url).then(response => {
+                resolve(response.data);
+            }).catch((error) => {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error:', error.message);
+            });
+        });
+    }
+
+    getTimersEventos() {
+        var url = Global.mainUrl + "api/timereventos";
+        return new Promise(function(resolve) {
+            axios.get(url).then(response => {
+                resolve(response.data);
+            }).catch((error) => {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error:', error.message);
+            });
+        });
+    }
+
+    findTimersActualesEmpresa(idempresa) {
+        var url = Global.mainUrl + "api/timereventos/eventosactualesempresa/" + idempresa;
+        return new Promise(function(resolve) {
+            axios.get(url).then(response => {
+                resolve(response.data);
+            }).catch((error) => {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error:', error.message);
+            });
+        });
+    } 
+
+    findTimersEventosEmpresa(idempresa) {
+        var url = Global.mainUrl + "api/timereventos/eventosempresa/" + idempresa;
+        return new Promise(function(resolve) {
+            axios.get(url).then(response => {
+                resolve(response.data);
+            }).catch((error) => {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error:', error.message);
+            });
+        });
+    } 
+
+    findTimersEventosSala(idsala) {
+        var url = Global.mainUrl + "api/timereventos/eventossala/" + idsala;
+        return new Promise(function(resolve) {
+            axios.get(url).then(response => {
+                resolve(response.data);
+            }).catch((error) => {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error:', error.message);
+            });
+        });
+    }   
+
 }

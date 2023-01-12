@@ -9,6 +9,7 @@ import Categorias from './components/Categorias';
 import Temporizadores from './components/Temporizadores';
 import Login from './components/Login';
 import Menu from './components/Menu';
+import EmpresasEventoTimers from './components/EmpresasEventoTimers';
 
 export default class Router extends Component {
     render() {
@@ -25,6 +26,7 @@ export default class Router extends Component {
                     <Route path='/categorias' element={<Categorias />}/>
                     <Route path='/temporizadores' element={<Temporizadores />}/>
                     <Route path='/login' element={<Login />}/>
+                    <Route path='/empresastimers' element={<EmpresasEventoTimers />}/>
                 </Routes>
             </BrowserRouter>
         )
