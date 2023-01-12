@@ -29,6 +29,17 @@ code {
   margin-top: 10px;
 }
 
+.timer_title_max {
+  text-align: center;
+  padding-bottom: 5px;
+  font-size: 25px;
+  margin-top: 10px;
+}
+
+.p_nonexist {
+  text-align: center;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

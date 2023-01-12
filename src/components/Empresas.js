@@ -36,6 +36,7 @@ export class Empresas extends Component {
             showCancelButton: true,
             confirmButtonText: "Aceptar",
             cancelButtonText: "Cancelar",
+            confirmButtonColor: "#2C4D9E",
             inputValidator: (value) => {
                 if (!value) {
                     return 'Debe añadir contenido para crear una nueva empresa';
@@ -53,11 +54,12 @@ export class Empresas extends Component {
         }).then((result) => {
             if (result.isConfirmed) {
                 this.currentService.postEmpresa(result.value).then(() => {
-                    Swal.fire(
-                        'Empresa creada',
-                        'Se ha creado la nueva empresa en la base de datos',
-                        'success'
-                    );
+                    Swal.fire({
+                        title: 'Empresa creada',
+                        text: 'Se ha creado la nueva empresa en la base de datos',
+                        icon: 'success',
+                        confirmButtonColor: "#2C4D9E"
+                    });
                     this.loadCompanies();
                 });
             }
@@ -99,11 +101,12 @@ export class Empresas extends Component {
                 if (result.isConfirmed) { // Modificar empresa
                     if (currentName.toUpperCase() !== result.value.toUpperCase()) {
                         this.currentService.putEmpresa(this.state.empresas[index].idEmpresa, result.value).then(() => {
-                            Swal.fire(
-                                'Empresa modificada',
-                                'Se ha modificado la empresa en la base de datos',
-                                'success'
-                            );
+                            Swal.fire({
+                                title: 'Empresa modificada',
+                                text: 'Se ha modificado la empresa en la base de datos',
+                                icon: 'success',
+                                confirmButtonColor: "#2C4D9E"
+                            });
                             this.loadCompanies();
                         });
                     }
@@ -130,11 +133,12 @@ export class Empresas extends Component {
                                     }
                                     if (counter === result_tes.length) {
                                         this.currentService.deleteEmpresa(this.state.empresas[index].idEmpresa).then(() => {
-                                            Swal.fire(
-                                                'Empresa eliminada',
-                                                'Se ha eliminado la empresa de la base de datos',
-                                                'success'
-                                            );
+                                            Swal.fire({
+                                                title: 'Empresa eliminada',
+                                                text: 'Se ha eliminado la empresa de la base de datos',
+                                                icon: 'success',
+                                                confirmButtonColor: "#2C4D9E"
+                                            });
                                             this.loadCompanies();
                                         });
                                     }
@@ -155,7 +159,7 @@ export class Empresas extends Component {
                     {
                         this.state.empresas && (
                             this.state.empresas.length === 0 ? (
-                                <p>No existen empresas en este momento</p>
+                                <p className='p_nonexist'>No existen empresas en este momento</p>
                             ) : (
                                 this.state.empresas.map((empresa, index) => {
                                     return (

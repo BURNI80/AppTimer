@@ -87,11 +87,12 @@ export class Categorias extends Component {
                     duracion : newDuration
                 }
                 this.currentService.postCategoria(newCategory).then(() => {
-                    Swal.fire(
-                        'Categoría creada',
-                        'Se ha creado la nueva categoría en la base de datos',
-                        'success'
-                    );
+                    Swal.fire({
+                        title: 'Categoría creada',
+                        text: 'Se ha creado la nueva categoría en la base de datos',
+                        icon: 'success',
+                        confirmButtonColor: "#2C4D9E"
+                    });
                     this.loadcategories();
                 });
             }
@@ -134,36 +135,36 @@ export class Categorias extends Component {
         return hours + minutes;
     }
 
-    transformMinutes = (duracion, legend) => { // Pasar de 75 a 01:15 (string)
-        if (duracion === 60) {
-            return (legend)? "1h" : "01:00";
-        } else if(duracion < 60) {
-            return (legend)? (duracion + " min") : ("00:" + duracion.toString().padStart(2,0));
+    transformMinutes = (duration, legend) => { // Pasar de 75 a 01:15 (string)
+        var hours = Math.floor(duration / 60);  
+        var minutes = duration % 60;
+        if (legend) { // Se necesita la leyenda de 'h' y 'min'
+            return ((hours === 0)? "" : (hours + "h ")) + minutes + " min";  
         } else {
-            var hours = Math.floor(duracion / 60);  
-            var minutes = duracion % 60;
-            return (legend)? (hours + " h " + minutes + " min") : (hours.toString().padStart(2,0) + ":" + minutes.toString().padStart(2,0));  
+            return hours.toString().padStart(2,0) + ":" + minutes.toString().padStart(2,0);  
         }
     }
 
     ejecutarPutCategoria = (newCategory) => {
         this.currentService.putCategoria(newCategory).then(() => {
-            Swal.fire(
-                'Categoría modificada',
-                'Se ha modificado la categoría en la base de datos',
-                'success'
-            );
+            Swal.fire({
+                title: 'Categoría modificada',
+                text: 'Se ha modificado la categoría en la base de datos',
+                icon: 'success',
+                confirmButtonColor: "#2C4D9E"
+            });
             this.loadcategories();
         });
     }
 
     ejecutarDeleteCategoria = (currentIDCategory) => {
         this.currentService.deleteCategoria(currentIDCategory).then(() => {
-            Swal.fire(
-                'Categoría eliminada',
-                'Se ha eliminado la categoría en la base de datos',
-                'success'
-            );
+            Swal.fire({
+                title: 'Categoría eliminada',
+                text: 'Se ha eliminado la categoría en la base de datos',
+                icon: 'success',
+                confirmButtonColor: "#2C4D9E"
+            });
             this.loadcategories();
         });
     }
@@ -291,7 +292,8 @@ export class Categorias extends Component {
                                                     'acaba a la misma hora, pero no es posible que se inicie a las <b>12:29</b> ya que eso ' +
                                                     'provocaría un solapamiento de tiempos.</p><br/><p style="margin:0;"> Esta medida se revisa cada vez que se modifica ' +
                                                     'la hora de inicio o la categoría (por ende la duración) de dicho temporizador. </p>',
-                                                    icon : 'info'
+                                                    icon : 'info',
+                                                    confirmButtonColor: "#2C4D9E"
                                                 });
                                             }
                                         });
@@ -370,7 +372,7 @@ export class Categorias extends Component {
                     {
                         this.state.categorias && (
                             this.state.categorias.length === 0 ? (
-                                <p>No existen categorías en este momento</p>
+                                <p className='p_nonexist'>No existen categorías en este momento</p>
                             ) : (
                                 this.state.categorias.map((categoria, index) => {
                                     return (

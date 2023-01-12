@@ -64,7 +64,12 @@ export class Login extends Component {
         }).then((result) => {
             if (result.isConfirmed) {
                 socket.emit("panic");
-                Swal.fire('Reseteo completado','Los temporizadores han sido reseteados satisfactoriamente','success');
+                Swal.fire({
+                    title: 'Reseteo completado',
+                    text: 'Los temporizadores han sido reseteados satisfactoriamente',
+                    icon: 'success',
+                    confirmButtonColor: "#2C4D9E"
+                });
             }
         })
     }

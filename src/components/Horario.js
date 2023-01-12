@@ -222,11 +222,12 @@ export class Horario extends Component {
                 }).then((subresult) => {
                     if (subresult.isConfirmed) {
                         this.currentService.postTES(newRegister).then((result_tes_2) => {
-                            Swal.fire(
-                                'Empresa asignada',
-                                'Se ha asignado una empresa a este momento',
-                                'success'
-                            );
+                            Swal.fire({
+                                title: 'Empresa asignada',
+                                text: 'Se ha asignado una empresa a este momento',
+                                icon: 'success',
+                                confirmButtonColor: "#2C4D9E"
+                            });
                             this.loadTiemposEmpresasSalas();
                         });
                     }
@@ -255,11 +256,12 @@ export class Horario extends Component {
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.currentService.deleteTES(idTes).then((result_tes) => {
-                        Swal.fire(
-                            'Empresa desasignada',
-                            'Ya no existe una empresa asignada a este momento',
-                            'success'
-                        );
+                        Swal.fire({
+                            title: 'Empresa desasignada',
+                            text: 'Ya no existe una empresa asignada a este momento',
+                            icon: 'success',
+                            confirmButtonColor: "#2C4D9E"
+                        });
                         this.loadTiemposEmpresasSalas();
                     })
                 }
@@ -297,15 +299,13 @@ export class Horario extends Component {
         return hours + minutes;
     }
 
-    transformMinutes = (duracion, legend) => { // Pasar de 75 a 01:15 (string)
-        if (duracion === 60) {
-            return (legend)? "1h" : "01:00";
-        } else if(duracion < 60) {
-            return (legend)? (duracion + " min") : ("00:" + duracion.toString().padStart(2,0));
+    transformMinutes = (duration, legend) => { // Pasar de 75 a 01:15 (string)
+        var hours = Math.floor(duration / 60);  
+        var minutes = duration % 60;
+        if (legend) { // Se necesita la leyenda de 'h' y 'min'
+            return ((hours === 0)? "" : (hours + "h ")) + minutes + " min";  
         } else {
-            var hours = Math.floor(duracion / 60);  
-            var minutes = duracion % 60;
-            return (legend)? (hours + " h " + minutes + " min") : (hours.toString().padStart(2,0) + ":" + minutes.toString().padStart(2,0));  
+            return hours.toString().padStart(2,0) + ":" + minutes.toString().padStart(2,0);  
         }
     }
 

@@ -103,11 +103,12 @@ export class Temporizadores extends Component {
                 }
                 if (this.state.temporizadores.length === 0) {
                     this.currentService.postTemporizador(newTimer).then(() => {
-                        Swal.fire(
-                            'Temporizador creado',
-                            'Se ha creado el nuevo temporizador en la base de datos',
-                            'success'
-                        );
+                        Swal.fire({
+                            title: 'Temporizador creado',
+                            text: 'Se ha creado el nuevo temporizador en la base de datos',
+                            icon: 'success',
+                            confirmButtonColor: "#2C4D9E"
+                        });
                         this.loadTimers();
                     }); 
                 } else {
@@ -129,11 +130,12 @@ export class Temporizadores extends Component {
                         if (counter === this.state.temporizadores.length) { // Se ejecuta el post al acabar el recorrido de timers
                             if (correcto) { // En este caso no hay conflicto con otros timers
                                 this.currentService.postTemporizador(newTimer).then(() => {
-                                    Swal.fire(
-                                        'Temporizador creado',
-                                        'Se ha creado el nuevo temporizador en la base de datos',
-                                        'success'
-                                    );
+                                    Swal.fire({
+                                        title: 'Temporizador creado',
+                                        text: 'Se ha creado el nuevo temporizador en la base de datos',
+                                        icon: 'success',
+                                        confirmButtonColor: "#2C4D9E"
+                                    });
                                     this.loadTimers();
                                 });                                                            
                             } else { // Existe conflicto con otros timers (Mismo init o valor entre rangos)
@@ -154,7 +156,8 @@ export class Temporizadores extends Component {
                                             'acaba a la misma hora, pero no es posible que se inicie a las <b>12:29</b> ya que eso ' +
                                             'provocaría un solapamiento de tiempos.</p><br/><p style="margin:0;"> Esta medida se revisa cada vez que se modifica ' +
                                             'la hora de inicio o la categoría (por ende la duración) de dicho temporizador. </p>',
-                                            icon : 'info'
+                                            icon : 'info',
+                                            confirmButtonColor: "#2C4D9E"
                                         });
                                     }
                                 });
@@ -213,11 +216,12 @@ export class Temporizadores extends Component {
                     }
                     if (this.state.temporizadores.length === 0) {
                         this.currentService.putTemporizador(newTimer).then(() => {
-                            Swal.fire(
-                                'Temporizador modificado',
-                                'Se ha modificado el temporizador de la base de datos',
-                                'success'
-                            );
+                            Swal.fire({
+                                title: 'Temporizador modificado',
+                                text: 'Se ha modificado el temporizador de la base de datos',
+                                icon: 'success',
+                                confirmButtonColor: "#2C4D9E"
+                            });
                             this.loadTimers();
                         }); 
                     } else {
@@ -241,11 +245,12 @@ export class Temporizadores extends Component {
                             if (counter === this.state.temporizadores.length) { // Se ejecuta el post al acabar el recorrido de timers
                                 if (correcto) { // En este caso no hay conflicto con otros timers
                                     this.currentService.putTemporizador(newTimer).then(() => {
-                                        Swal.fire(
-                                            'Temporizador modificado',
-                                            'Se ha modificado el temporizador de la base de datos',
-                                            'success'
-                                        );
+                                        Swal.fire({
+                                            title: 'Temporizador modificado',
+                                            text: 'Se ha modificado el temporizador de la base de datos',
+                                            icon: 'success',
+                                            confirmButtonColor: "#2C4D9E"
+                                        });
                                         this.loadTimers();
                                     });                                                      
                                 } else { // Existe conflicto con otros timers (Mismo init o valor entre rangos)
@@ -266,7 +271,8 @@ export class Temporizadores extends Component {
                                                 'acaba a la misma hora, pero no es posible que se inicie a las <b>12:29</b> ya que eso ' +
                                                 'provocaría un solapamiento de tiempos.</p><br/><p style="margin:0;"> Esta medida se revisa cada vez que se modifica ' +
                                                 'la hora de inicio o la categoría (por ende la duración) de dicho temporizador. </p>',
-                                                icon : 'info'
+                                                icon : 'info',
+                                                confirmButtonColor: "#2C4D9E"
                                             });
                                         }
                                     });
@@ -291,11 +297,12 @@ export class Temporizadores extends Component {
                             this.currentService.getTES().then((result_tes) => {
                                 if (result_tes.length === 0) { // No existen TES, borramos directamente
                                     this.currentService.deleteTemporizador(currentID).then(() => {
-                                        Swal.fire(
-                                            'Temporizador eliminado',
-                                            'Se ha eliminado el temporizador de la base de datos',
-                                            'success'
-                                        );
+                                        Swal.fire({
+                                            title: 'Temporizador eliminado',
+                                            text: 'Se ha eliminado el temporizador de la base de datos',
+                                            icon: 'success',
+                                            confirmButtonColor: "#2C4D9E"
+                                        });
                                         this.loadTimers();
                                     });
                                 } else { // Existen TES, realizaremos una revisión
@@ -307,11 +314,12 @@ export class Temporizadores extends Component {
                                         }
                                         if (counter === result_tes.length) {
                                             this.currentService.deleteTemporizador(currentID).then(() => {
-                                                Swal.fire(
-                                                    'Temporizador eliminado',
-                                                    'Se ha eliminado el temporizador de la base de datos',
-                                                    'success'
-                                                );
+                                                Swal.fire({
+                                                    title: 'Temporizador eliminado',
+                                                    text: 'Se ha eliminado el temporizador de la base de datos',
+                                                    icon: 'success',
+                                                    confirmButtonColor: "#2C4D9E"
+                                                });
                                                 this.loadTimers();
                                             });
                                         }
@@ -365,16 +373,22 @@ export class Temporizadores extends Component {
         return hours + minutes;
     }
 
-    transformMinutes = (duracion, legend) => { // Pasar de 75 a 01:15 (string)
-        if (duracion === 60) {
-            return (legend)? "1h" : "01:00";
-        } else if(duracion < 60) {
-            return (legend)? (duracion + " min") : ("00:" + duracion.toString().padStart(2,0));
+    transformMinutes = (duration, legend) => { // Pasar de 75 a 01:15 (string)
+        var hours = Math.floor(duration / 60);  
+        var minutes = duration % 60;
+        if (legend) { // Se necesita la leyenda de 'h' y 'min'
+            return ((hours === 0)? "" : (hours + "h ")) + minutes + " min";  
         } else {
-            var hours = Math.floor(duracion / 60);  
-            var minutes = duracion % 60;
-            return (legend)? (hours + " h " + minutes + " min") : (hours.toString().padStart(2,0) + ":" + minutes.toString().padStart(2,0));  
+            return hours.toString().padStart(2,0) + ":" + minutes.toString().padStart(2,0);  
         }
+    }
+
+    deleteAll = () => {
+        Swal.fire(
+            "Trabajando en el método",
+            "Este método está en construcción...",
+            "info"
+        )
     }
 
     render() {
@@ -383,8 +397,15 @@ export class Temporizadores extends Component {
                 <h1 className='timer_title noselect'>TEMPORIZADORES</h1>
                 <div className='content_box'>
                     {
+                        this.state.temporizadores.length !== 0 && this.state.token && (
+                            <button className='button_deleteAll' onClick={ () => this.deleteAll()}>
+                                Eliminar todos
+                            </button>
+                        )
+                    }
+                    {
                         this.state.temporizadores.length === 0 ? (
-                            <p>No existen temporizadores en este momento</p>
+                            <p className='p_nonexist'>No existen temporizadores en este momento</p>
                         ) : (
                             this.state.temporizadores.map((tempo, index) => {
                                 return (

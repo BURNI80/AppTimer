@@ -54,11 +54,12 @@ export class Salas extends Component {
         }).then((result) => {
             if (result.isConfirmed) {
                 this.currentService.postSala(result.value).then(() => {
-                    Swal.fire(
-                        'Sala creada',
-                        'Se ha creado la nueva sala en la base de datos',
-                        'success'
-                    );
+                    Swal.fire({
+                        title: 'Sala creada',
+                        text: 'Se ha creado la nueva sala en la base de datos',
+                        icon: 'success',
+                        confirmButtonColor: "#2C4D9E"
+                    });
                     this.loadRooms();
                 });
             }
@@ -100,11 +101,12 @@ export class Salas extends Component {
                 if (result.isConfirmed) { // Modificación de la sala
                     if (currentName.toUpperCase() !== result.value.toUpperCase()) {
                         this.currentService.putSala(this.state.salas[index].idSala, result.value).then(() => {
-                            Swal.fire(
-                                'Sala modificada',
-                                'Se ha modificado la sala en la Base de datos',
-                                'success'
-                            );
+                            Swal.fire({
+                                title: 'Sala modificada',
+                                text: 'Se ha modificado la sala en la base de datos',
+                                icon: 'success',
+                                confirmButtonColor: "#2C4D9E"
+                            });
                             this.loadRooms();
                         });
                     }
@@ -126,11 +128,12 @@ export class Salas extends Component {
                                 var counter = 0;
                                 if (result_tes.length === 0) {
                                     this.currentService.deleteSala(currentID).then(() => {
-                                        Swal.fire(
-                                            'Sala eliminada',
-                                            'Se ha eliminado la sala de la base de datos',
-                                            'success'
-                                        );
+                                        Swal.fire({
+                                            title: 'Sala eliminada',
+                                            text: 'Se ha eliminado la sala de la base de datos',
+                                            icon: 'success',
+                                            confirmButtonColor: "#2C4D9E"
+                                        });
                                         this.loadRooms();
                                     });
                                 } else {
@@ -141,11 +144,12 @@ export class Salas extends Component {
                                         }
                                         if (counter === result_tes.length) {
                                             this.currentService.deleteSala(currentID).then(() => {
-                                                Swal.fire(
-                                                    'Sala eliminada',
-                                                    'Se ha eliminado la sala de la base de datos',
-                                                    'success'
-                                                );
+                                                Swal.fire({
+                                                    title: 'Sala eliminada',
+                                                    text: 'Se ha eliminado la sala de la base de datos',
+                                                    icon: 'success',
+                                                    confirmButtonColor: "#2C4D9E"
+                                                });
                                                 this.loadRooms();
                                             });
                                         }
@@ -167,7 +171,7 @@ export class Salas extends Component {
                     {
                         this.state.salas && (
                             this.state.salas.length === 0 ? (
-                                <p>No existen salas en este momento</p>
+                                <p className='p_nonexist'>No existen salas en este momento</p>
                             ) : (
                                 this.state.salas.map((sala, index) => {
                                     return (

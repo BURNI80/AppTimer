@@ -53,3 +53,13 @@
     width: 100%;
     margin: 0;
 }
+
+.button_deleteAll {
+    margin: 0 0 5px 0;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 25px;
+    box-shadow: 0 4px 0 1px rgb(192, 192, 192);
+    background-color: rgb(203, 50, 52);;
+    color: white;
+}
