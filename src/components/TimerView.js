@@ -10,6 +10,7 @@ import io from "socket.io-client";
 /* SUBCOMPONENTES */
 import SalaPopUp from './SalaPopUp';
 import Tiempo from './Tiempo';
+import Swal from 'sweetalert2';
 
 const socket = io(Global.SocketUrl, {
     withCredentials: true,
@@ -212,6 +213,32 @@ export class TimerView extends Component {
         });
     }
 
+    getNow = () => {
+        var ahora = new Date(), hours = "", minutes = "";
+        hours = ((ahora.getHours() < 10)? "0" : "") + ahora.getHours();
+        minutes = ((ahora.getMinutes() < 10)? "0" : "") + ahora.getMinutes();
+        return hours + ":" + minutes;
+    }
+
+    startEvent = () => {
+        if (this.state.token) {
+            Swal.fire({
+                title: "¿Iniciar evento?",
+                text: "El evento se iniciará a las " + this.getNow(),
+                icon: "question",
+                showConfirmButton: true,
+                confirmButtonText: "Iniciar",
+                confirmButtonColor: "#2C4D9E",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar"
+            }).then((result_start) => {
+                if (result_start.isConfirmed) {
+                    socket.emit("start");
+                }
+            });
+        }
+    }
+
     render() {
         return (
             <div>
@@ -236,7 +263,7 @@ export class TimerView extends Component {
                             )
                         }
                 </header>
-                <div id="theCircle" className='maincircle mainshadow shadowcircle'>
+                <div id="theCircle" className='maincircle mainshadow shadowcircle' onClick={() => this.startEvent()}>
                     <span className='valuecircle noselect'>
                         <Tiempo/>
                     </span>
