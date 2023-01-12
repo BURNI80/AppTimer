@@ -39,7 +39,7 @@
 
     --bkg_button_edit_schedule : var(--blue_primary);
 
-    --fill_targer_company_inactive   : invert(27%) sepia(96%) saturate(0%) brightness(180%);
+    --fill_targer_company_inactive   : invert(27%) sepia(96%) saturate(0%) brightness(180%); 
     --fill_targer_company_add        : invert(27%) sepia(96%) saturate(1090%) hue-rotate(206deg) brightness(109%) contrast(93%);
     --fill_targer_company_add_active : invert(27%) sepia(96%) saturate(1090%) hue-rotate(206deg) brightness(50%) contrast(93%);
     --fill_targer_company_sub        : invert(13%) sepia(90%) saturate(7500%) hue-rotate(359deg) brightness(100%) contrast(103%);;
