@@ -163,7 +163,7 @@ export class Empresas extends Component {
                             ) : (
                                 this.state.empresas.map((empresa, index) => {
                                     return (
-                                        <div className='box_empresa' key={index} onClick={() => this.modifyCompany(index)}>
+                                        <div className='box_empresa scroll' key={index} onClick={() => this.modifyCompany(index)}>
                                             <p className='box_empresa_target noselect'>
                                                 {empresa.nombreEmpresa}
                                             </p>

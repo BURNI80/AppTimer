@@ -376,7 +376,7 @@ export class Categorias extends Component {
                             ) : (
                                 this.state.categorias.map((categoria, index) => {
                                     return (
-                                        <div className='box_categoria' key={index} onClick={() => this.modifyCategory(index)}>
+                                        <div className='box_categoria scroll' key={index} onClick={() => this.modifyCategory(index)}>
                                             <div className='box_categoria_target_time'>{this.transformMinutes(categoria.duracion, true)}</div>
                                             <div className='box_categoria_target noselect'>
                                                 {categoria.categoria}
