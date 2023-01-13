@@ -50,13 +50,54 @@ export class TimerView extends Component {
         }); // Cargamos el nombre de la primera sala habilitada
         
         socket.on('envio', (num) => {
-            this.changeColors(num);
+            console.log(num);
+            var caso = 0;
+            if(num <= 180 && num > 60) { caso = 1; }
+            if(num <= 60 && num > 3) { caso = 2; }
+            if(num <= 3 && num > 0) { caso = 3; }
+            switch (caso) {
+                case 1: 
+                    document.getElementById('theCircle').classList.add("crcolor_180");
+                    document.getElementById('theCircle').classList.remove("crcolor_60");
+                    document.getElementById('theCircle').classList.remove("crcolor_3");
+                    break;
+                case 2: 
+                    document.getElementById('theCircle').classList.remove("crcolor_180");
+                    document.getElementById('theCircle').classList.add("crcolor_60");
+                    document.getElementById('theCircle').classList.remove("crcolor_3");
+                    break;
+                case 3:
+                    document.getElementById('theCircle').classList.remove("crcolor_180");
+                    document.getElementById('theCircle').classList.remove("crcolor_60");
+                    document.getElementById('theCircle').classList.add("crcolor_3");
+                    break;
+                default: 
+                    document.getElementById('theCircle').classList.remove("crcolor_180");
+                    document.getElementById('theCircle').classList.remove("crcolor_60");
+                    document.getElementById('theCircle').classList.remove("crcolor_3");
+                break;
+            }
         });
 
         socket.on('timerID', (idTimer) => {
             this.setState({
                 timer_id : idTimer
-            }, () => { this.changeInformation(); });
+            }, () => {
+                this.setState({
+                    next_timers : this.ordenarTimers(this.state.next_timers_ordenados)
+                }, () => {
+                    if (this.state.next_timers.length > 0) {
+                        this.getCategoryName(this.state.next_timers[0].idCategoria, true);
+                        this.getLineName(this.state.next_timers[0].idTemporizador, true);                        
+                    }
+        
+                    if (this.state.next_timers.length > 1) {
+                        this.getCategoryName(this.state.next_timers[1].idCategoria, false);
+                        this.getLineName(this.state.next_timers[1].idTemporizador, false);                        
+                    }
+                    this.checkCompany();
+                });
+            });
         });
     }
 
@@ -168,52 +209,6 @@ export class TimerView extends Component {
         minutes = ((ahora.getMinutes() < 10)? "0" : "") + ahora.getMinutes();
         return hours + ":" + minutes;
     }
-
-    changeColors = (num) => {
-        var caso = 0;
-        if(num <= 180 && num > 60) { caso = 1; }
-        if(num <= 60 && num > 3) { caso = 2; }
-        if(num <= 3 && num > 0) { caso = 3; }
-        switch (caso) {
-            case 1: 
-                document.getElementById('theCircle').classList.add("crcolor_180");
-                document.getElementById('theCircle').classList.remove("crcolor_60");
-                document.getElementById('theCircle').classList.remove("crcolor_3");
-                break;
-            case 2: 
-                document.getElementById('theCircle').classList.remove("crcolor_180");
-                document.getElementById('theCircle').classList.add("crcolor_60");
-                document.getElementById('theCircle').classList.remove("crcolor_3");
-                break;
-            case 3:
-                document.getElementById('theCircle').classList.remove("crcolor_180");
-                document.getElementById('theCircle').classList.remove("crcolor_60");
-                document.getElementById('theCircle').classList.add("crcolor_3");
-                break;
-            default: 
-                document.getElementById('theCircle').classList.remove("crcolor_180");
-                document.getElementById('theCircle').classList.remove("crcolor_60");
-                document.getElementById('theCircle').classList.remove("crcolor_3");
-            break;
-        }
-    }
-
-    changeInformation = () => {
-        this.setState({
-            next_timers : this.ordenarTimers(this.state.next_timers_ordenados)
-        }, () => {
-            if (this.state.next_timers.length > 0) {
-                this.getCategoryName(this.state.next_timers[0].idCategoria, true);
-                this.getLineName(this.state.next_timers[0].idTemporizador, true);                        
-            }
-
-            if (this.state.next_timers.length > 1) {
-                this.getCategoryName(this.state.next_timers[1].idCategoria, false);
-                this.getLineName(this.state.next_timers[1].idTemporizador, false);                        
-            }
-            this.checkCompany();
-        });
-    }
     
     startEvent = () => {
         if (this.state.token) {
@@ -229,14 +224,7 @@ export class TimerView extends Component {
             }).then((result_start) => {
                 if (result_start.isConfirmed) {
                     socket.emit("start");
-                    socket.on('envio', (num) => {
-                        this.changeColors(num);
-                    });
-                    socket.on('timerID', (idTimer) => {
-                        this.setState({
-                            timer_id : idTimer
-                        }, () => { this.changeInformation(); });
-                    });
+                    window.location.reload(false);
                 }
             });
         }
