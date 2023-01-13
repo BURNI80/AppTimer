@@ -11,6 +11,7 @@ import io from "socket.io-client";
 import SalaPopUp from './SalaPopUp';
 import Tiempo from './Tiempo';
 import Swal from 'sweetalert2';
+import HorarioEmpresaPopUp from './HorarioActualEmpresaPopUp';
 
 const socket = io(Global.SocketUrl, {
     withCredentials: true,
@@ -34,7 +35,9 @@ export class TimerView extends Component {
         statusSalaPopUp : false, // Almacena la aparición o no del PopUp de selección de sala
         checkCompany : false,
         next_timers_ordenados : [],
-        token : false
+        token : false,
+        eventosActualesEmpresa: null,
+        showHorariosEmpresa: false
     }
 
     componentDidMount = () => {
@@ -45,69 +48,15 @@ export class TimerView extends Component {
         this.currentService.getSalas().then((result) => {
             this.changeRoom(result[0].nombreSala, result[0].idSala);
         }); // Cargamos el nombre de la primera sala habilitada
-
-        // this.currentService.getTemporizadores().then((result) => {
-        //     this.setState({
-        //         next_timers_ordenados : result
-        //     });
-        // });
         
         socket.on('envio', (num) => {
-            var caso = 0;
-            if(num <= 180 && num > 60) {
-                caso = 1;
-            }
-
-            if(num <= 60 && num > 3) {
-                caso = 2;
-            }
-
-            if(num <= 3 && num > 0) {
-                caso = 3;
-            }
-            switch (caso) {
-                case 1: 
-                    document.getElementById('theCircle').classList.add("crcolor_180");
-                    document.getElementById('theCircle').classList.remove("crcolor_60");
-                    document.getElementById('theCircle').classList.remove("crcolor_3");
-                    break;
-                case 2: 
-                    document.getElementById('theCircle').classList.remove("crcolor_180");
-                    document.getElementById('theCircle').classList.add("crcolor_60");
-                    document.getElementById('theCircle').classList.remove("crcolor_3");
-                    break;
-                case 3:
-                    document.getElementById('theCircle').classList.remove("crcolor_180");
-                    document.getElementById('theCircle').classList.remove("crcolor_60");
-                    document.getElementById('theCircle').classList.add("crcolor_3");
-                    break;
-                default: 
-                    document.getElementById('theCircle').classList.remove("crcolor_180");
-                    document.getElementById('theCircle').classList.remove("crcolor_60");
-                    document.getElementById('theCircle').classList.remove("crcolor_3");
-                break;
-            }
+            this.changeColors(num);
         });
 
         socket.on('timerID', (idTimer) => {
             this.setState({
                 timer_id : idTimer
-            }, () => {
-                this.setState({
-                    next_timers : this.ordenarTimers(this.state.next_timers_ordenados)
-                }, () => {
-                    if (this.state.next_timers.length > 0) {
-                        this.getCategoryName(this.state.next_timers[0].idCategoria, true);
-                        this.getLineName(this.state.next_timers[0].idTemporizador, true);                        
-                    }
-
-                    if (this.state.next_timers.length > 1) {
-                        this.getCategoryName(this.state.next_timers[1].idCategoria, false);
-                        this.getLineName(this.state.next_timers[1].idTemporizador, false);                        
-                    }
-                    this.checkCompany();
-                });
-            });
+            }, () => { this.changeInformation(); });
         });
     }
 
@@ -152,15 +101,15 @@ export class TimerView extends Component {
         // First, filter out any timer objects that are in the past
         const currentDate = new Date();
         const filteredTimers = timers.filter(timer => {
-          const startTime = new Date(timer.inicio);
-          return startTime >= currentDate;
+            const startTime = new Date(timer.inicio);
+            return startTime >= currentDate;
         });
       
         // Then, sort the remaining timer objects by start time
         const sortedTimers = filteredTimers.sort((a, b) => {
-          const startTimeA = new Date(a.inicio);
-          const startTimeB = new Date(b.inicio);
-          return startTimeA - startTimeB;
+            const startTimeA = new Date(a.inicio);
+            const startTimeB = new Date(b.inicio);
+            return startTimeA - startTimeB;
         });
       
         return sortedTimers;
@@ -220,6 +169,52 @@ export class TimerView extends Component {
         return hours + ":" + minutes;
     }
 
+    changeColors = (num) => {
+        var caso = 0;
+        if(num <= 180 && num > 60) { caso = 1; }
+        if(num <= 60 && num > 3) { caso = 2; }
+        if(num <= 3 && num > 0) { caso = 3; }
+        switch (caso) {
+            case 1: 
+                document.getElementById('theCircle').classList.add("crcolor_180");
+                document.getElementById('theCircle').classList.remove("crcolor_60");
+                document.getElementById('theCircle').classList.remove("crcolor_3");
+                break;
+            case 2: 
+                document.getElementById('theCircle').classList.remove("crcolor_180");
+                document.getElementById('theCircle').classList.add("crcolor_60");
+                document.getElementById('theCircle').classList.remove("crcolor_3");
+                break;
+            case 3:
+                document.getElementById('theCircle').classList.remove("crcolor_180");
+                document.getElementById('theCircle').classList.remove("crcolor_60");
+                document.getElementById('theCircle').classList.add("crcolor_3");
+                break;
+            default: 
+                document.getElementById('theCircle').classList.remove("crcolor_180");
+                document.getElementById('theCircle').classList.remove("crcolor_60");
+                document.getElementById('theCircle').classList.remove("crcolor_3");
+            break;
+        }
+    }
+
+    changeInformation = () => {
+        this.setState({
+            next_timers : this.ordenarTimers(this.state.next_timers_ordenados)
+        }, () => {
+            if (this.state.next_timers.length > 0) {
+                this.getCategoryName(this.state.next_timers[0].idCategoria, true);
+                this.getLineName(this.state.next_timers[0].idTemporizador, true);                        
+            }
+
+            if (this.state.next_timers.length > 1) {
+                this.getCategoryName(this.state.next_timers[1].idCategoria, false);
+                this.getLineName(this.state.next_timers[1].idTemporizador, false);                        
+            }
+            this.checkCompany();
+        });
+    }
+    
     startEvent = () => {
         if (this.state.token) {
             Swal.fire({
@@ -234,9 +229,25 @@ export class TimerView extends Component {
             }).then((result_start) => {
                 if (result_start.isConfirmed) {
                     socket.emit("start");
+                    socket.on('envio', (num) => {
+                        this.changeColors(num);
+                    });
+                    socket.on('timerID', (idTimer) => {
+                        this.setState({
+                            timer_id : idTimer
+                        }, () => { this.changeInformation(); });
+                    });
                 }
             });
         }
+    }
+
+    showTiemposActualesEmpresa = () => {
+        this.setState({showHorariosEmpresa: true});
+    }
+
+    changeStatusHorarioEmpresaPopUp = () => {
+        this.setState({showHorariosEmpresa: false});
     }
 
     render() {
@@ -247,13 +258,19 @@ export class TimerView extends Component {
                         <SalaPopUp changeStatusSalaPopUp={this.changeStatusSalaPopUp} changeRoom={this.changeRoom} />
                     )
                 }
+                {
+                    this.state.showHorariosEmpresa && (
+                        <HorarioEmpresaPopUp changeStatusHorarioEmpresaPopUp={this.changeStatusHorarioEmpresaPopUp} 
+                        idempresa={this.state.empresa_id}/>
+                    )
+                } 
                 <header>
                     <button className='mainsala noselect' onClick={ () => this.changeStatusSalaPopUp() }>
                         {this.state.sala_nombre}
                     </button>
                         {
                             this.state.checkCompany ? (
-                                <p className='maincompany noselect'>
+                                <p className='maincompany noselect' onClick={ () => this.showTiemposActualesEmpresa() }>
                                     <b>Está hablando:</b><br/><i>{this.state.empresa_nombre}</i>
                                 </p>
                             ) : (
