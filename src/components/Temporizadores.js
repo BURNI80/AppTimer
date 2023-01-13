@@ -384,11 +384,29 @@ export class Temporizadores extends Component {
     }
 
     deleteAll = () => {
-        Swal.fire(
-            "Trabajando en el método",
-            "Este método está en construcción...",
-            "info"
-        )
+        Swal.fire({
+            title: "¿Está segur@?",
+            text: "Se eliminarán todos los temporizadores de la base de datos, así como " + 
+                  "los correspondientes registros de empresas / salas. Está acción no se puede revertir.",
+            icon: "warning",
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Sí, estoy segur@",
+            confirmButtonColor: "#FF0000",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.currentService.deleteAllTimers().then((result_dAll) => {
+                    this.loadTimers();
+                    Swal.fire({
+                        title: "Borrado completado",
+                        text: "Todos los temporizadores han sido eliminados correctamente",
+                        icon: "success",
+                        confirmButtonColor: "#2C4D9E"
+                    });
+                });
+            }
+        });
     }
 
     render() {

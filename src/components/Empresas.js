@@ -125,30 +125,38 @@ export class Empresas extends Component {
                         if (result.isConfirmed) {
                             var currentID = this.state.empresas[index].idEmpresa;
                             this.currentService.getTES().then((result_tes) => {
-                                var counter = 0;
-                                result_tes.forEach(registro => {
-                                    counter ++;
-                                    if (registro.idEmpresa === currentID) {
-                                        this.currentService.deleteTES(registro.id);
-                                    }
-                                    if (counter === result_tes.length) {
-                                        this.currentService.deleteEmpresa(this.state.empresas[index].idEmpresa).then(() => {
-                                            Swal.fire({
-                                                title: 'Empresa eliminada',
-                                                text: 'Se ha eliminado la empresa de la base de datos',
-                                                icon: 'success',
-                                                confirmButtonColor: "#2C4D9E"
-                                            });
-                                            this.loadCompanies();
-                                        });
-                                    }
-                                });
+                                if (result_tes.length === 0) {
+                                    this.executeDelete(index);
+                                } else {
+                                    var counter = 0;
+                                    result_tes.forEach(registro => {
+                                        counter ++;
+                                        if (registro.idEmpresa === currentID) {
+                                            this.currentService.deleteTES(registro.id);
+                                        }
+                                        if (counter === result_tes.length) {
+                                            this.executeDelete(index);
+                                        }
+                                    });
+                                }
                             });
                         }
                     });
                 }
             });   
         }
+    }
+
+    executeDelete = (index) => {
+        this.currentService.deleteEmpresa(this.state.empresas[index].idEmpresa).then(() => {
+            Swal.fire({
+                title: 'Empresa eliminada',
+                text: 'Se ha eliminado la empresa de la base de datos',
+                icon: 'success',
+                confirmButtonColor: "#2C4D9E"
+            });
+            this.loadCompanies();
+        });
     }
 
     render() {

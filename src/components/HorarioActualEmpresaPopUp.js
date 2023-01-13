@@ -94,15 +94,15 @@ export class HorarioEmpresaPopUp extends Component {
                     <Card className="text-center" border="primary">
                         <Card.Header>Horario {this.state.nombreEmpresa}</Card.Header>
                         <Card.Body>
-                        <Card.Title>
-                            Sala {this.state.siguienteEventoEmpresa.sala}
-                        </Card.Title>
-                        <Card.Text>
-                            <p>Siguiente charla</p>
-                            <h1 className="text-danger">
-                            Inicio: {this.getInicio(this.state.siguienteEventoEmpresa.inicioTimer)}
-                        </h1>
-                        </Card.Text>
+                            <Card.Title>
+                                Sala {this.state.siguienteEventoEmpresa.sala}
+                            </Card.Title>
+                            <Card.Text>
+                                <p>Siguiente charla</p>
+                                <h1 className="text-danger">
+                                    Inicio: {this.getInicio(this.state.siguienteEventoEmpresa.inicioTimer)}
+                                </h1>
+                            </Card.Text>
                         </Card.Body>
                         <Card.Footer className="text-muted">
                         Fin de charla: {this.getFinal(this.state.siguienteEventoEmpresa.duracion
@@ -115,10 +115,10 @@ export class HorarioEmpresaPopUp extends Component {
                     <Card className="text-center">
                         <Card.Header>No hay siguientes charlas</Card.Header>
                         <Card.Body>
-                        <Card.Title>Sin horarios</Card.Title>
-                        <Card.Text>
-                            Las charlas de la empresa han finalizado
-                        </Card.Text>
+                            <Card.Title>Sin horarios</Card.Title>
+                            <Card.Text>
+                                Las charlas de la empresa han finalizado
+                            </Card.Text>
                         </Card.Body>
                         <Card.Footer className="text-muted">Información</Card.Footer>
                     </Card>

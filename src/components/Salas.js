@@ -125,7 +125,6 @@ export class Salas extends Component {
                         if (result.isConfirmed) {
                             var currentID = this.state.salas[index].idSala;
                             this.currentService.getTES().then((result_tes) => {
-                                var counter = 0;
                                 if (result_tes.length === 0) {
                                     this.currentService.deleteSala(currentID).then(() => {
                                         Swal.fire({
@@ -137,6 +136,7 @@ export class Salas extends Component {
                                         this.loadRooms();
                                     });
                                 } else {
+                                    var counter = 0;
                                     result_tes.forEach(registro => {
                                         counter ++;
                                         if (registro.idSala === currentID) {

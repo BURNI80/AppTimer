@@ -306,6 +306,20 @@ export default class service {
         });
     }
 
+    deleteAllTimers() {
+        var url = Global.mainUrl + "api/Timers/DeleteAllTimers";
+        return new Promise(function(resolve) {
+            axios.delete(url).then(response => {
+                socket.emit("syncData");
+                resolve(response);
+            }).catch((error) => {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error:', error.message);
+            });
+        });
+    }
+
+
     // INSERCCIÓN DE PACO PARA ELABORAR LA VISTA DE SEGUIMIENTO DE EMPRESAS
     // (CODIGO NUEVO DE TIMERS PARA UPDATE)
     updateIncreaseTimers(minutes) { // INCREMENTAMOS EN n MINUTES

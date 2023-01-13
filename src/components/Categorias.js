@@ -139,7 +139,7 @@ export class Categorias extends Component {
         var hours = Math.floor(duration / 60);  
         var minutes = duration % 60;
         if (legend) { // Se necesita la leyenda de 'h' y 'min'
-            return ((hours === 0)? "" : (hours + "h ")) + minutes + " min";  
+            return ((hours === 0)? "" : (hours + "h ")) + ((minutes === 0)? "" : (minutes + " min"));  
         } else {
             return hours.toString().padStart(2,0) + ":" + minutes.toString().padStart(2,0);  
         }
@@ -319,21 +319,22 @@ export class Categorias extends Component {
                         if (result.isConfirmed) {
                             var currentIDCategory = this.state.categorias[index].idCategoria;
                             this.currentService.getTemporizadores().then((result_timers) => {
-                                var counter_timers = 0;
-                                if (result_timers.length === 0) {
+                                var counter_timers = 0, borradoCompletado = false;
+                                if (result_timers.length === 0) { // ======================== NO HAY TIMERS ASOCIADOS, SE BORRA DIRECTAMENTE
                                     this.ejecutarDeleteCategoria(currentIDCategory);
-                                } else {
+                                } else { // ================================================= HAY TIMERS ASOCIADOS, SE COMPRUEBAN FALLOS 
                                     result_timers.forEach(timer => {
                                         counter_timers ++;
-                                        if (timer.idCategoria === currentIDCategory) { // Timer con la categoría asignada encontrado
-                                            this.currentService.getTES().then((result_tes) => { // Obtengo los registros de los TES asociados
-                                                if (result_tes.length === 0) {
+                                        if (timer.idCategoria === currentIDCategory) { // =========== Timer con la categoría asignada encontrado
+                                            this.currentService.getTES().then((result_tes) => { // == Obtengo los registros de los TES asociados
+                                                if (result_tes.length === 0) { // =================== NO hay TES asociados, se borra directamente
                                                     this.currentService.deleteTemporizador(timer.idTemporizador).then(() => {
-                                                        if (counter_timers === result_timers.length) {
+                                                        if (counter_timers === result_timers.length) { // Cuando se eliminen todos los timers, fuera categoría
                                                             this.ejecutarDeleteCategoria(currentIDCategory);
+                                                            borradoCompletado = true;
                                                         }
                                                     });
-                                                } else {
+                                                } else { // Existen TES asociados, primero borramos los TES, luego el TIMER 
                                                     var counter_tes = 0;
                                                     result_tes.forEach(registro => { // Recorro los registros de los TES asociados
                                                         counter_tes ++;
@@ -343,15 +344,22 @@ export class Categorias extends Component {
                                                                     this.currentService.deleteTemporizador(timer.idTemporizador).then(() => {
                                                                         if (counter_timers === result_timers.length) {
                                                                             this.ejecutarDeleteCategoria(currentIDCategory);
+                                                                            borradoCompletado = true;
                                                                         }
                                                                     });
                                                                 }
                                                             });
                                                         }
-                                                        
                                                     });
                                                 }
                                             });
+                                        }
+                                        // En el caso de nunca se hubiesen encontrado timers con la categoría actual,
+                                        // lo que hacemos es ejecutar directamente el borrado de dicha cartegoría. 
+                                        // La variable borradoCompletado determinará si se ha borrado de la BBDD y por
+                                        // ende, de si hace falta realizar esta acción, o no.
+                                        if (counter_timers === result_timers.length && borradoCompletado === false) {
+                                            this.ejecutarDeleteCategoria(currentIDCategory);
                                         }
                                     });
                                 }

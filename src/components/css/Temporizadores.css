@@ -63,3 +63,8 @@
     background-color: rgb(203, 50, 52);;
     color: white;
 }
+
+.button_deleteAll:hover, .button_deleteAll:active {
+    box-shadow: none;
+    transform: translateY(4px);
+}
