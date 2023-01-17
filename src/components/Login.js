@@ -108,9 +108,9 @@ export class Login extends Component {
                             <NavLink to="/temporizadores" className='button_superuser'>
                                 Temporizadores
                             </NavLink>
-                            <button id="btn_emergencia" className='button_superuser' onClick={() => this.resetEmergency()}>
+                            {/* <button id="btn_emergencia" className='button_superuser' onClick={() => this.resetEmergency()}>
                                 Resetear Temporizadores
-                            </button>
+                            </button> */}
                         </div>
                     )
                 }

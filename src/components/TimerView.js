@@ -50,32 +50,34 @@ export class TimerView extends Component {
         }); // Cargamos el nombre de la primera sala habilitada
         
         socket.on('envio', (num) => {
-            console.log(num);
-            var caso = 0;
-            if(num <= 180 && num > 60) { caso = 1; }
-            if(num <= 60 && num > 3) { caso = 2; }
-            if(num <= 3 && num > 0) { caso = 3; }
-            switch (caso) {
-                case 1: 
-                    document.getElementById('theCircle').classList.add("crcolor_180");
-                    document.getElementById('theCircle').classList.remove("crcolor_60");
-                    document.getElementById('theCircle').classList.remove("crcolor_3");
+            var miCirculo = document.getElementById('theCircle');
+            if (miCirculo !== null) {
+                var caso = 0;
+                if(num <= 180 && num > 60) { caso = 1; }
+                if(num <= 60 && num > 3) { caso = 2; }
+                if(num <= 3 && num > 0) { caso = 3; }
+                switch (caso) {
+                    case 1: 
+                        miCirculo.classList.add("crcolor_180");
+                        miCirculo.classList.remove("crcolor_60");
+                        miCirculo.classList.remove("crcolor_3");
+                        break;
+                    case 2: 
+                        miCirculo.classList.remove("crcolor_180");
+                        miCirculo.classList.add("crcolor_60");
+                        miCirculo.classList.remove("crcolor_3");
+                        break;
+                    case 3:
+                        miCirculo.classList.remove("crcolor_180");
+                        miCirculo.classList.remove("crcolor_60");
+                        miCirculo.classList.add("crcolor_3");
+                        break;
+                    default: 
+                        miCirculo.classList.remove("crcolor_180");
+                        miCirculo.classList.remove("crcolor_60");
+                        miCirculo.classList.remove("crcolor_3");
                     break;
-                case 2: 
-                    document.getElementById('theCircle').classList.remove("crcolor_180");
-                    document.getElementById('theCircle').classList.add("crcolor_60");
-                    document.getElementById('theCircle').classList.remove("crcolor_3");
-                    break;
-                case 3:
-                    document.getElementById('theCircle').classList.remove("crcolor_180");
-                    document.getElementById('theCircle').classList.remove("crcolor_60");
-                    document.getElementById('theCircle').classList.add("crcolor_3");
-                    break;
-                default: 
-                    document.getElementById('theCircle').classList.remove("crcolor_180");
-                    document.getElementById('theCircle').classList.remove("crcolor_60");
-                    document.getElementById('theCircle').classList.remove("crcolor_3");
-                break;
+                }
             }
         });
 
