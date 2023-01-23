@@ -11,6 +11,8 @@
     transition-duration: 0.4s;
     transform: translateX(-80vw) translateY(-10px);
     border-right: 5px solid var(--bdr_popup_menu);
+    overflow: scroll;
+    padding-bottom: 10px;
 }
 
 .menupopup-box-component-show {
@@ -62,3 +64,30 @@
     color: white;
 }
 /* =============================== MENU ITEMS STYLE =============================== */
+
+
+/* ============================== MENU AUTHORS STYLE ============================== */
+.authors_box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 5px;
+    grid-row-gap: 0px;
+    text-align: center;
+}
+
+#authors_title {
+    text-align: center;
+    font-family: Share;
+    columns: rgb(100, 100, 100);
+    margin: 10px 0;
+}
+
+.authors {
+    font-weight: bold;
+    font-family: Share;
+    color: rgb(60, 60, 60);
+    margin: 0;
+}
+
+/* ============================== MENU AUTHORS STYLE ============================== */
